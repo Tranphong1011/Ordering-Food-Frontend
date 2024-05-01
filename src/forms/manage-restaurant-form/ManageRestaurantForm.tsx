@@ -10,6 +10,8 @@ import { z } from "zod";
 import DetailsSection from "./DetailsSection";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import CuisinesSection from "./CuisinesSection";
 
 const formSchema = z.object({
   restaurantName: z.string({ required_error: "Restaurant name is required" }),
@@ -24,7 +26,7 @@ const formSchema = z.object({
     invalid_type_error: "Est Delivery time must be a valid number",
   }),
   cuisines: z.array(z.string()).nonempty({
-    message: "please select at least one item",
+    message: "Please select at least one item",
   }),
   menuItems: z
     .array(
@@ -65,7 +67,8 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
         className="space-y-8 bg-gray-50 p-10 rounded-lg"
       >
         <DetailsSection />
-
+        <Separator />
+        <CuisinesSection />
         {isLoading ? (
           <LoadingButton />
         ) : (
