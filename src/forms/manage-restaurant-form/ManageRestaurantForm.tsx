@@ -42,7 +42,7 @@ const formSchema = z.object({
     }),
   imageFile: z.instanceof(File, { message: "Image is required" }),
 });
-type restaurantFormData = z.infer<typeof formSchema>; // typeof formSchema is passed as an argument to z.infer (a func)
+type RestaurantFormData = z.infer<typeof formSchema>; // typeof formSchema is passed as an argument to z.infer (a func)
 
 type Props = {
   // onSave: (restaurantFormData: restaurantFormData) => void;
@@ -51,7 +51,7 @@ type Props = {
 };
 
 const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
-  const form = useForm<restaurantFormData>({
+  const form = useForm<RestaurantFormData>({
     resolver: zodResolver(formSchema), //  assigns the result of zodResolver(formSchema) to the resolver property of the object , zodResolver returns a resolver function using the formSchema
     defaultValues: {
       cuisines: [],
@@ -59,8 +59,33 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
     },
   });
 
-  const onsubmit = (formDataJson: restaurantFormData) => {
-    // Convert formDataJson into FormData obj
+  const onsubmit = (formDataJson: RestaurantFormData) => {
+    const formData = new FormData();
+    formData.append("restaurantName", formDataJson.restaurantName);
+    formData.append("city", formDataJson.city);
+    formData.append("country", formDataJson.country);
+    formData.append(
+      "deliveryPrice",
+      (formDataJson.deliveryPrice * 100).toString()
+    );
+    formData.append(
+      "estimatedDeliveryTime",
+      formDataJson.estimatedDeliveryTime.toString()
+    );
+    formDataJson.cuisines.forEach((cuisine, index) => {
+      formData.append(`cuisines[${index}]`, cuisine);
+    });
+    formDataJson.menuItems.forEach((menuItem, index) => {
+      formData.append(`menuItems[${index}][name]`, menuItem.name);
+      formData.append(
+        `menuItems[${index}][price]`,
+        (menuItem.price * 100).toString()
+      );
+    });
+
+    formData.append("imageFile", formDataJson.imageFile);
+
+    onSave(formData);
   };
   return (
     <Form {...form}>
@@ -75,13 +100,7 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
         <MenuSection />
         <Separator />
         <ImageSection />
-        {isLoading ? (
-          <LoadingButton />
-        ) : (
-          <Button type="submit" >
-            Submit
-          </Button>
-        )}
+        {isLoading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
       </form>
     </Form>
   );
