@@ -17,7 +17,7 @@ const MenuSection = () => {
           Create your menu and give each item a name and a price
         </FormDescription>
       </div>
-      <FormField
+      <FormField 
         control={control}
         name="menuItems"
         render={() => (

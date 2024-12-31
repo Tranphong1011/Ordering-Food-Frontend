@@ -13,6 +13,7 @@ import MobileNavLinks from "./MobileNavLinks";
 
 const MobileNav = () => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
+  console.log(user);
   return (
     <Sheet>
       <SheetTrigger>
@@ -35,7 +36,7 @@ const MobileNav = () => {
             <MobileNavLinks />
           ) : (
             <Button
-              onClick={() => loginWithRedirect()}
+              onClick={async () => await loginWithRedirect()}
               className="flex-1 font-bold bg-orange-500"
             >
               Log In

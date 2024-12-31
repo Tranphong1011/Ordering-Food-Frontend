@@ -24,29 +24,30 @@ const formSchema = z.object({
   country: z.string().min(1, "Country is required"),
 });
 
-type userFormData = z.infer<typeof formSchema>; // typeof formSchema is passed as an argument to z.infer (a func)
+type userFormData = z.infer<typeof formSchema>; 
 
 type Props = {
-  onSave: (userProfileData: userFormData) => void; // void is return type
+  onSave: (userProfileData: userFormData) => void; 
   isLoading: boolean; // boolean
   currentUser: User;
 };
 
 const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
   const form = useForm<userFormData>({
-    resolver: zodResolver(formSchema), //  assigns the result of zodResolver(formSchema) to the resolver property of the object , zodResolver returns a resolver function using the formSchema
+    resolver: zodResolver(formSchema), //  define a validation schema using Zod and use it with react-hook-form to validate form inputs.
     defaultValues: currentUser,
   });
 
   useEffect(() => {
-    form.reset(currentUser); // sets the form's fields to the values: currentUser
+    form.reset(currentUser); 
   }, [currentUser, form]);
 
   return (
-    <Form {...form}>
+    // form.control, form.handleSubmit, form.reset
+    <Form {...form}> 
       <form
         onSubmit={form.handleSubmit(onSave)} // using handleSumit from hook instead of defining
-        className="space-y-4 bg-gray-50 rounded-lg md:p-10"
+        className="space-y-5 bg-gray-100 rounded-lg p-10"
       >
         <div>
           <h2 className="text-2xl font-bold">User Profile Form</h2>
@@ -54,9 +55,10 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
             View and change your profile information here
           </FormDescription>
         </div>
+        
         <FormField
-          control={form.control} //  provides the form control methods and state to the FormField component.
-          name="email" // dentify the input field within the form.
+          control={form.control} 
+          name="email" 
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -129,9 +131,11 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
         {isLoading ? (
           <LoadingButton />
         ) : (
-          <Button type="submit" className="bg-orange-500">
-            Submit
-          </Button>
+          <div className="pt-5">
+            <Button type="submit" className="bg-orange-500">
+              Save
+            </Button>
+          </div>
         )}
       </form>
     </Form>

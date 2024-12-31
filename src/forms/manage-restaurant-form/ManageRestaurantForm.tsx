@@ -1,8 +1,5 @@
 import {
   Form,
-  FormDescription,
-  FormField,
-  FormItem,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -37,9 +34,7 @@ const formSchema = z.object({
         price: z.coerce.number().min(1, "Price is required"),
       })
     )
-    .nonempty({
-      message: "please select at least one item",
-    }),
+    ,
   imageFile: z.instanceof(File, { message: "Image is required" }),
 });
 type RestaurantFormData = z.infer<typeof formSchema>; // typeof formSchema is passed as an argument to z.infer (a func)
@@ -52,9 +47,9 @@ type Props = {
 
 const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
   const form = useForm<RestaurantFormData>({
-    resolver: zodResolver(formSchema), //  assigns the result of zodResolver(formSchema) to the resolver property of the object , zodResolver returns a resolver function using the formSchema
+    resolver: zodResolver(formSchema), 
     defaultValues: {
-      cuisines: [],
+      cuisines: [], // always assign default values for any arrays: make sure the values of those items arent pre-existing
       menuItems: [{ name: "", price: 0 }],
     },
   });
@@ -66,7 +61,7 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
     formData.append("country", formDataJson.country);
     formData.append(
       "deliveryPrice",
-      (formDataJson.deliveryPrice * 100).toString()
+      (formDataJson.deliveryPrice).toString()
     );
     formData.append(
       "estimatedDeliveryTime",
@@ -79,7 +74,7 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
       formData.append(`menuItems[${index}][name]`, menuItem.name);
       formData.append(
         `menuItems[${index}][price]`,
-        (menuItem.price * 100).toString()
+        (menuItem.price).toString()
       );
     });
 
@@ -91,7 +86,7 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onsubmit)} // using handleSumit from hook instead of defining
-        className="space-y-8 bg-gray-50 p-10 rounded-lg"
+        className="space-y-8 bg-gray-100 p-10 rounded-lg"
       >
         <DetailsSection />
         <Separator />
@@ -99,7 +94,7 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
         <Separator />
         <MenuSection />
         <Separator />
-        <ImageSection />
+        <ImageSection />    
         {isLoading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
       </form>
     </Form>

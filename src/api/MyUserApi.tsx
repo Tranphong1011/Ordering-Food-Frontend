@@ -14,6 +14,7 @@ export const useCreateMyUser = () => {
   const { getAccessTokenSilently } = useAuth0(); // get user access token from auth0 server
   const createMyUserRequest = async (user: CreateUserRequest) => {
     const accessToken = await getAccessTokenSilently();
+    console.log("AccessToken for create: " ,accessToken)
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
       method: "POST",
       headers: {
@@ -54,6 +55,7 @@ export const useUpdateMyUser = () => {
   const { getAccessTokenSilently } = useAuth0();
   const updateMyUserRequest = async (formData: UpdateUserRequest) => {
     const accessToken = await getAccessTokenSilently();
+    // console.log("AccessToken for update: " ,accessToken)
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
       method: "PUT",
       headers: {
@@ -72,7 +74,6 @@ export const useUpdateMyUser = () => {
     mutateAsync: updateUser,
     isLoading,
     isSuccess,
-
     error,
     reset,
   } = useMutation(updateMyUserRequest);
@@ -92,6 +93,7 @@ export const useGetMyUser = () => {
   const { getAccessTokenSilently } = useAuth0();
   const getMyUserRequest = async () : Promise<User>=> {
     const accessToken = await getAccessTokenSilently();
+    // console.log("AccessToken for get: " ,accessToken)
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
       method: "GET",
       headers: {

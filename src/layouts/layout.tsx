@@ -8,7 +8,7 @@ type Props = {
   showHero?: boolean; //option
 };
 
-const Layout = ({ children, showHero = false }: Props) => {
+const Layout = ({ children, showHero }: Props) => {
   return ( 
     <div className="flex flex-col min-h-screen"> 
       <Header /> 

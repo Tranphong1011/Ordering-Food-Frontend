@@ -10,7 +10,7 @@ const Header = () => {
           to="/"
           className="text-3xl font-bold tracking-tight text-orange-500"
         >
-          MernEats.com
+          Les Délices
         </Link>
         <div className="md:hidden">
           <MobileNav />
@@ -18,7 +18,7 @@ const Header = () => {
         <div className="hidden md:block">
           <MainNav />
 
-        </div>
+        </div>        
       </div>
     </div>
   );

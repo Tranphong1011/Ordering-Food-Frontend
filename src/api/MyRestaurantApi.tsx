@@ -6,7 +6,7 @@ import { toast } from "sonner";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useCreateMyRestaurant = () => {
-  const { getAccessTokenSilently } = useAuth0(); // get user access token from auth0 server
+  const { getAccessTokenSilently } = useAuth0(); 
   const createMyRestaurantRequest = async (
     RestaurantFormData: FormData
   ): Promise<Restaurant> => {

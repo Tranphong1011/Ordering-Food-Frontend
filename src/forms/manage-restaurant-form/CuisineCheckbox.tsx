@@ -16,7 +16,7 @@ const CuisineCheckbox = ({ cuisine, field }: Props) => {
           checked={field.value.includes(cuisine)}
           onCheckedChange={(checked) => {
             if (checked) {
-              field.onChange([...field.value, cuisine]); // the new array of selected cuisines.
+              field.onChange([...field.value, cuisine]); 
             } else {
               field.onChange(
                 field.value.filter((value: string) => value !== cuisine)

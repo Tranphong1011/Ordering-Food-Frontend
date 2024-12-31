@@ -19,6 +19,7 @@ const AppRoutes = () => {
       <Route path="/auth-callback" element={<AuthCallbackPage />} />
 
       <Route element={<ProtectedRoute />}>
+      
         <Route
           path="/user-profile"
           element={
