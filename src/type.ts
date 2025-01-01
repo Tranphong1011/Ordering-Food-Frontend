@@ -1,7 +1,7 @@
 export type MenuItem = {
   _id: string;
   name: string;
-  price: string;
+  price: number;
 };
 
 export type User = {

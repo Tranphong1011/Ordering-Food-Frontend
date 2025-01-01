@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const AuthCallbackPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth0();
-  console.log(user);
   const { createUser } = useCreateMyUser();
   const hasCreatedUser = useRef(false);
   useEffect(() => {
