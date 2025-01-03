@@ -32,7 +32,7 @@ const DetailsSection = () => {
           </FormItem>
         )}
       />
-      <div className="flex flex-col md:flex-row gap-4" >
+      <div className="flex flex-col md:flex-row gap-4">
         <FormField
           control={control}
           name="city"
@@ -61,32 +61,42 @@ const DetailsSection = () => {
         />
       </div>
       <div className="flex flex-col lg:flex-row lg:w-2/3 gap-4 ">
-      <FormField
-        control={control}
-        name="deliveryPrice"
-        render={({ field }) => (
-          <FormItem className="flex-1">
-            <FormLabel>Delivery Price ($)</FormLabel>
-            <FormControl>
-              <Input {...field} className="bg-white" placeholder="1.50" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={control}
-        name="estimatedDeliveryTime"
-        render={({ field }) => (
-          <FormItem className="flex-1">
-            <FormLabel>Estimated Delivery Time (minutes)</FormLabel>
-            <FormControl>
-              <Input {...field} className="bg-white" placeholder="30"/>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+        <FormField
+          control={control}
+          name="deliveryPrice"
+          render={({ field }) => (
+            <FormItem className="flex-1">
+              <FormLabel>Delivery Price ($)</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  className="bg-white"
+                  placeholder="1.50"
+                  onBlur={(e) => {
+                    const formattedValue = parseFloat(e.target.value).toFixed(
+                      2
+                    );
+                    field.onChange(formattedValue);
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={control}
+          name="estimatedDeliveryTime"
+          render={({ field }) => (
+            <FormItem className="flex-1">
+              <FormLabel>Estimated Delivery Time (minutes)</FormLabel>
+              <FormControl>
+                <Input {...field} className="bg-white" placeholder="30" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
     </div>
   );

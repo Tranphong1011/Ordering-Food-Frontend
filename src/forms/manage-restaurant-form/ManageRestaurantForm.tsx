@@ -55,25 +55,31 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
       },
   });
 
+  // useEffect(() => {
+  //   if (!restaurant) {
+  //     return;
+  //   }
+  //   // price lowest domination of 100 = 100pence == 1GBP
+  //   const deliveryPriceFormatted = parseInt(
+  //     (restaurant.deliveryPrice / 100).toFixed(2)
+  //   );
+  //   const menuItemsFormatted = restaurant.menuItems.map((item) => ({
+  //     ...item,
+  //     price: parseInt((item.price / 100).toFixed(2)),
+  //   }));
+  //   const updatedRestaurant = {
+  //     ...restaurant,
+  //     deliveryPrice: deliveryPriceFormatted,
+  //     menuItems: menuItemsFormatted,
+  //   };
+  //   form.reset(updatedRestaurant);
+  // }, [form, restaurant]);
+
   useEffect(() => {
-    if (!restaurant) {
-      return;
-    }
-    // price lowest domination of 100 = 100pence == 1GBP
-    const deliveryPriceFormatted = parseInt(
-      (restaurant.deliveryPrice / 100).toFixed(2)
-    );
-    const menuItemsFormatted = restaurant.menuItems.map((item) => ({
-      ...item,
-      price: parseInt((item.price / 100).toFixed(2)),
-    }));
-    const updatedRestaurant = {
-      ...restaurant,
-      deliveryPrice: deliveryPriceFormatted,
-      menuItems: menuItemsFormatted,
-    };
-    form.reset(updatedRestaurant);
-  }, [form, restaurant]);
+    form.reset(restaurant); 
+  }, [restaurant, form]);
+
+
 
   const onsubmit = (formDataJson: RestaurantFormData) => {
     const formData = new FormData();

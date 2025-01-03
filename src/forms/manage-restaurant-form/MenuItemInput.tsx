@@ -46,7 +46,15 @@ const MenuItemInput = ({ index, removeMenuItem }: Props) => {
               Price ($) <FormMessage />
             </FormLabel>
             <FormControl>
-              <Input {...field} placeholder="8.50" className="bg-white" />
+              <Input
+                {...field}
+                placeholder="8.50"
+                className="bg-white"
+                onBlur={(e) => {
+                  const formattedValue = parseFloat(e.target.value).toFixed(2);
+                  field.onChange(formattedValue);
+                }}
+              />
             </FormControl>
           </FormItem>
         )}

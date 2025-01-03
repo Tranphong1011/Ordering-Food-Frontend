@@ -6,7 +6,7 @@ import { toast } from "sonner";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useCreateMyRestaurant = () => {
-  const { getAccessTokenSilently } = useAuth0(); 
+  const { getAccessTokenSilently } = useAuth0();
   const createMyRestaurantRequest = async (
     RestaurantFormData: FormData
   ): Promise<Restaurant> => {
@@ -42,7 +42,7 @@ export const useCreateMyRestaurant = () => {
   };
 };
 
-export const useGetMyRestaurant = () =>  {
+export const useGetMyRestaurant = () => {
   const { getAccessTokenSilently } = useAuth0();
   const getMyRestaurantRequest = async (): Promise<Restaurant> => {
     const accessToken = await getAccessTokenSilently();
@@ -52,20 +52,20 @@ export const useGetMyRestaurant = () =>  {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    console.log("response: ", response);
     if (!response.ok) {
       throw new Error("Failed to fetch restaurant");
     }
     return response.json();
   };
   const {
-      data: currentRestaurant,
-      isLoading,
-      error,
-    } = useQuery("fetchMyRestaurant", getMyRestaurantRequest); // unique key vs function make HTTP request
-  
-    if (error) {
-      toast.error(error.toString());
-    }
-  
-    return {currentRestaurant, isLoading}
+    data: currentRestaurant,
+    isLoading,
+    error,
+  } = useQuery("fetchMyRestaurant", getMyRestaurantRequest);
+  if (error) {
+    toast.error(error.toString());
+  }
+
+  return { currentRestaurant, isLoading };
 };
